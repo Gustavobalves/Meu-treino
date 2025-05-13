@@ -1,0 +1,36 @@
+##página principal com treinos##
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Meu Treino - Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Meu Treino</h1>
+
+    <!-- Formulário de Login -->
+    <form id="form-login">
+      <h2>Login</h2>
+      <input type="email" placeholder="E-mail" required>
+      <input type="password" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+      <p class="link" id="mostrar-cadastro">Ainda não tem conta? <span>Criar agora</span></p>
+    </form>
+
+    <!-- Formulário de Cadastro -->
+    <form id="form-cadastro" class="hidden">
+      <h2>Criar Conta</h2>
+      <input type="email" placeholder="E-mail" required>
+      <input type="password" placeholder="Senha" required>
+      <input type="password" placeholder="Confirmar Senha" required>
+      <input type="number" placeholder="Idade" required>
+      <button type="submit">Cadastrar</button>
+      <p class="link" id="mostrar-login">Já tem conta? <span>Fazer login</span></p>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

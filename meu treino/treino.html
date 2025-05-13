@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Monte Seu Treino</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Monte seu Treino</h1>
+
+    <form id="form-treino">
+      <input type="text" id="nome" placeholder="Nome" required>
+      <input type="number" id="idade" placeholder="Idade" required>
+      <input type="number" id="peso" placeholder="Peso (kg)" step="0.1" required>
+      <input type="number" id="altura" placeholder="Altura (cm)" required>
+
+      <label for="tempo">Tempo de academia (meses):</label>
+      <input type="number" id="tempo" placeholder="Tempo de academia (meses)" required>
+
+      <label for="objetivo">Objetivo:</label>
+      <select id="objetivo" required>
+        <option value="">Selecione</option>
+        <option value="secar">Secar</option>
+        <option value="ganhar">Ganhar massa</option>
+        <option value="manter">Manter forma</option>
+      </select>
+
+      <button type="submit">Gerar treino</button>
+    </form>
+
+    <div id="resultado" class="hidden">
+      <h2>Resultado para <span id="res-nome"></span></h2>
+      <p>Idade: <span id="res-idade"></span> anos</p>
+      <p>IMC: <span id="res-imc"></span></p>
+      <p>Água por dia: <span id="res-agua"></span> litros</p>
+      <p><strong>Dica personalizada:</strong></p>
+      <p id="res-dica"></p>
+    </div>
+
+    <script>
+      const form = document.getElementById('form-treino');
+      const resultado = document.getElementById('resultado');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const nome = document.getElementById('nome').value;
+        const idade = Number(document.getElementById('idade').value);
+        const peso = Number(document.getElementById('peso').value);
+        const altura = Number(document.getElementById('altura').value) / 100;
+        const tempo = Number(document.getElementById('tempo').value);
+        const objetivo = document.getElementById('objetivo').value;
+
+        const imc = (peso / (altura * altura)).toFixed(1);
+        const agua = (peso * 35 / 1000).toFixed(2);
+
+        let dica = "";
+        if (imc < 18.5) {
+          dica = "Você está abaixo do peso. Reforce a alimentação e foque em exercícios de resistência.";
+        } else if (imc < 24.9) {
+          dica = "Parabéns! Seu peso está ideal. Mantenha uma rotina equilibrada de treinos.";
+        } else if (imc < 29.9) {
+          dica = "Você está com sobrepeso. Foque em treinos aeróbicos e alimentação balanceada.";
+        } else {
+          dica = "IMC elevado. Consulte um profissional antes de iniciar treinos intensos.";
+        }
+
+        let treino = "";
+        if (objetivo === "secar") {
+          treino = tempo < 6 ? "Treino cardio 3x/semana + musculação leve." : "Treino cardio 5x/semana + musculação moderada.";
+        } else if (objetivo === "ganhar") {
+          treino = tempo < 6 ? "Musculação 3x/semana com foco em força." : "Musculação 5x/semana com progressão de carga.";
+        } else if (objetivo === "manter") {
+          treino = "Treino equilibrado 3x/semana com foco em manutenção.";
+        }
+
+        document.getElementById('res-nome').textContent = nome;
+        document.getElementById('res-idade').textContent = idade;
+        document.getElementById('res-imc').textContent = imc;
+        document.getElementById('res-agua').textContent = agua;
+        document.getElementById('res-dica').textContent = `${dica} Plano sugerido: ${treino}`;
+
+        resultado.classList.remove('hidden');
+      });
+    </script>
+  </div>
+</body>
+</html>
